@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public GameObject PausePanel;
     public GameObject fpsText;
+    public GameObject SpawnPoint1;
+    public GameObject SpawnPoint2;
 
 
     void Start()
