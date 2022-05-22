@@ -5,15 +5,75 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody rb;
-    // Start is called before the first frame update
+    public float speed = 6f;
+    public float xspeed = 3f;
+    public Vector2 xbounds = new Vector2(-2f, -2f);
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        rb.velocity = new Vector3(0, 0, speed);
     }
 
-    // Update is called once per frame
+    void FixedUpdate()
+    {
+        float step = xspeed;
+        if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            step *= -1;
+        else if (!Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+            step = 0f;
+        else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D))
+            step = 0f;
+
+        rb.velocity = new Vector3(step, 0, speed);
+
+        // rb.velocity = Vector3.forward * speed;
+        // rb.AddForce(new Vector3(Input.GetAxis("Horizontal") * xspeed, 0, speed), ForceMode.VelocityChange);
+
+
+        //Vector3 oldPos = transform.position;
+        //transform.position = new Vector3(Mathf.Clamp(oldPos.x, xbounds.x, xbounds.y), oldPos.y, oldPos.z);
+        // Input.GetAxis("Horizontal") *xspeed
+
+        //var direction = new Vector3(0, 0, hor).normalized;
+        //direction *= hspeed * Time.deltaTime;
+
+        //rb.velocity = new Vector3(Input.GetAxis("Horizontal") * xspeed, 0, speed);
+        // Vector3 pos = transform.position;
+        // Debug.Log($"{pos.x} / {Mathf.Clamp(pos.x, xbounds.x, xbounds.y)}");
+        //if (pos.x != Mathf.Clamp(pos.x, xbounds.x, xbounds.y))
+        //{
+        //    rb.velocity = new Vector3(0, 0, speed);
+        //    transform.position = new Vector3(Mathf.Clamp(pos.x, xbounds.x, xbounds.y), pos.y, pos.z);
+        //}
+        //else
+        //{
+
+        //float step = xspeed;
+        //if (Input.GetAxis("Horizontal") < 0)
+        //    step *= -1;
+        //Debug.Log(Mathf.Abs(Mathf.Clamp(pos.x + step, xbounds.x, xbounds.y) - pos.x));
+        //if (Mathf.Abs(Mathf.Clamp(pos.x + step, xbounds.x, xbounds.y) - pos.x)>0.0001)
+        //{
+        //    pos.x = Mathf.Clamp(pos.x + step, xbounds.x, xbounds.y);
+        //    rb.velocity = new Vector3(0, 0, speed);
+        //}
+        //else
+        //{
+        //    rb.velocity = new Vector3(step, 0, speed);
+        //}
+
+        //rb.velocity = new Vector3(Mathf.Clamp(pos.x + step, xbounds.x, xbounds.y) - pos.x, 0, speed);
+        //}
+        // Vector3 oldPos = transform.position;
+        // transform.position = new Vector3(Mathf.Clamp(oldPos.x, xbounds.x, xbounds.y), oldPos.y, oldPos.z);
+    }
+
     void Update()
     {
-        rb.AddForce(Vector3.right * 5);
+        Vector3 pos = transform.position;
+        pos = new Vector3(Mathf.Clamp(pos.x, xbounds.x, xbounds.y), pos.y, pos.z);
+        transform.position = pos;
     }
 }

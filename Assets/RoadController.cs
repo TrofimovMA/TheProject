@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class RoadController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject RoadFull;
+    public GameObject RoadPartHalf;
 
-    // Update is called once per frame
-    void Update()
+    float sizeZ;
+
+    private void Start()
     {
-        
+        sizeZ = RoadPartHalf.GetComponent<Renderer>().bounds.size.z;
     }
 
     private void OnTriggerEnter(Collider Other)
     {
-        transform.position += new Vector3(transform.GetChild(0).GetComponent<Renderer>().bounds.size.z*2, 0, 0);
+        RoadFull.transform.position += new Vector3(0, 0, sizeZ);
     }
 
 }
