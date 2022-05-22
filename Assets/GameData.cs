@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class GameData
 {
-    public static bool showFps = false;
+    public static bool showFps = true;
+    public static bool fullScreen = true;
 }
