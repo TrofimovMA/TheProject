@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
@@ -8,10 +9,18 @@ public class MenuController : MonoBehaviour
     public GameObject MainMenu;
     public GameObject OptionMenu;
 
-    // Start is called before the first frame update
     void Start()
     {
         GoToMainMenu();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            if (OptionMenu.activeInHierarchy)
+                GoToMainMenu();
+            else
+                Exit();
     }
 
     public void Play()
@@ -31,15 +40,14 @@ public class MenuController : MonoBehaviour
         OptionMenu.SetActive(true);
     }
 
+    public void ToggleShowFPS(Toggle change)
+    {
+        GameData.showFps = change.isOn;
+        Debug.Log("STATUS " + change.isOn);
+    }
+
     public void Exit()
     {
         Application.Quit();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            Application.Quit();
     }
 }

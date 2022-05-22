@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject Car;
+    public GameObject Camera;
+
     Rigidbody rb;
+    private Vector3 cam_offset;
+
     public float speed = 6f;
     public float xspeed = 3f;
     public Vector2 xbounds = new Vector2(-2f, -2f);
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-
+        rb = Car.GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0, 0, speed);
+
+        cam_offset = Camera.transform.position - Car.transform.position;
     }
 
     void FixedUpdate()
@@ -72,8 +78,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Vector3 pos = transform.position;
+        Vector3 pos = Car.transform.position;
         pos = new Vector3(Mathf.Clamp(pos.x, xbounds.x, xbounds.y), pos.y, pos.z);
-        transform.position = pos;
+        Car.transform.position = pos;
+    }
+
+    void LateUpdate()
+    {
+        Camera.transform.position = Car.transform.position + cam_offset;
     }
 }

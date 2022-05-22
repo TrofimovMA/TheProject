@@ -5,19 +5,36 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public GameObject PausePanel;
+    public GameObject FPStext;
+
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("escape"))
-        {
-            // Application.Quit();
-            SceneManager.LoadScene("Menu");
-        }
+        if (Input.GetKeyDown(KeyCode.Escape))
+            if (PausePanel.activeInHierarchy)
+                GoToGame();
+            else
+                GoToPauseMenu();
+    }
+
+    public void GoToPauseMenu()
+    {
+        PausePanel.SetActive(true);
+    }
+
+    public void GoToGame()
+    {
+        PausePanel.SetActive(false);
+    }
+
+    public void Exit()
+    {
+        SceneManager.LoadScene("Menu");
     }
 }
