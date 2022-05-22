@@ -9,6 +9,7 @@ public class ZoneExtend : MonoBehaviour
     public GameObject NPC1;
     public GameObject SpawnPoint1;
     public GameObject SpawnPoint2;
+    public GameObject gameManager;
 
     float sizeZ;
 
@@ -22,9 +23,20 @@ public class ZoneExtend : MonoBehaviour
         if (!Other.gameObject.CompareTag("Player"))
             return;
 
+        GameManager gm = gameManager.GetComponent<GameManager>();
+
         RoadFull.transform.position += new Vector3(0, 0, sizeZ);
 
-        Instantiate(NPC1, SpawnPoint1.transform.position, SpawnPoint1.transform.rotation);
-    }
+        GameObject npc;
+        if (Random.Range(0, 1 + 1) == 0)
+        {
+            npc = Instantiate(NPC1, SpawnPoint1.transform.position, SpawnPoint1.transform.rotation);
+        }
+        else
+        {
+            npc = Instantiate(NPC1, SpawnPoint2.transform.position, SpawnPoint2.transform.rotation);
+        }
 
+        gm.addNPCtoList(npc);
+    }
 }

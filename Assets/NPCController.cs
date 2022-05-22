@@ -13,7 +13,7 @@ public class NPCController : MonoBehaviour
 
     void Start()
     {
-        rb = Car.GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0, 0, speed);
 
     }

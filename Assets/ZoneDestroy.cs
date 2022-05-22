@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class ZoneDestroy : MonoBehaviour
 {
+    public GameManager gameManager;
+
     private void Start()
     {
 
@@ -13,6 +15,9 @@ public class ZoneDestroy : MonoBehaviour
     {
         if (Other.gameObject.CompareTag("Player"))
             return;
+
+        GameManager gm = gameManager.GetComponent<GameManager>();
+        gm.deleteNPCtoList(Other.gameObject);
 
         Destroy(Other.gameObject);
     }
